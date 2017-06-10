@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8'>
+</head>
+<body>
+  <div class="dyn-app"></div>
+  <script>
+
+  const app = (w, d, appSelector) => {
+    const $app = d.querySelector(appSelector)
+    const selfArchive = new DatArchive(String(w.location))
+
+    async function setup () {
+      // get info about self
+      const info = await selfArchive.getInfo()
+      const $head = d.querySelector('head')
+      const $title = d.createElement('title')
+      $title.innerText = info.title
+      $head.appendChild($title)
+
+      const $h1 = d.createElement('h1')
+      $h1.innerText = info.title
+
+      const $h2 = d.createElement('h2')
+      $h2.innerText = info.description
+      $app.appendChild($h1)
+      $app.appendChild($h2)
+
+      const $dl = d.createElement('dl')
+      const $dt1 = d.createElement('dt')
+      const $dd1 = d.createElement('dd')
+      $dt1.innerText = 'Last modified'
+      $dd1.innerText = new Date(info.mtime).toISOString()
+      $dl.appendChild($dt1)
+      $dl.appendChild($dd1)
+
+      const $dt2 = d.createElement('dt')
+      const $dd2 = d.createElement('dd')
+      const $a2 = d.createElement('a')
+      $dt2.innerText = 'Canonical URL'
+      $a2.href = info.url
+      $a2.innerText = info.url
+      $dd2.appendChild($a2)
+      $dl.appendChild($dt2)
+      $dl.appendChild($dd2)
+
+      const $dt3 = d.createElement('dt')
+      const $dd3 = d.createElement('dd')
+
+      $dt3.innerText = 'Peers'
+      $dd3.innerText = 0
+
+      $dl.appendChild($dt3)
+      $dl.appendChild($dd3)
+
+      const $dt4 = d.createElement('dt')
+      const $dd4 = d.createElement('dd')
+
+      if (info.forkOf && info.forkOf.length) {
+        $dt4.innerText = 'History'
+        const last = info.forkOf.length - 1
+        info.forkOf.forEach((x, i) => {
+          const $a = d.createElement('a')
+          $a.href = x
+          $a.innerText = x
+          $dd4.appendChild($a)
+          if (i === last) { return }
+          $dd4.appendChild(d.createTextNode(' » '))
+        })
+
+        $dl.appendChild($dt4)
+        $dl.appendChild($dd4)
+      }
+
+      $app.appendChild($dl)
+
+      const $changes = d.createElement('div')
+      const $h3 = d.createElement('h3')
+      $h3.innerText = 'Changes'
+
+      const $ol = d.createElement('ol')
+
+      $changes.appendChild($h3)
+      $changes.appendChild($ol)
+
+      $app.appendChild($changes)
+
+      const fileEvents = selfArchive.createFileActivityStream()
+
+      const evFn = (e) => {
+        const $li = d.createElement('li')
+        $li.innerText = `${e.path} ${e.type} at ${new Date().toISOString()}`
+        $ol.appendChild($li)
+      }
+
+      fileEvents.addEventListener('invalidated', evFn)
+      fileEvents.addEventListener('changed', evFn)
+
+      var networkEvents = selfArchive.createNetworkActivityStream()
+
+      networkEvents.addEventListener('network-changed', ({connections}) => {
+        $dd3.innerText = connections
+      })
+
+      networkEvents.addEventListener('download', ({feed, block, bytes}) => {
+        const $li = d.createElement('li')
+        $li.innerText = `Downloaded ${feed} block ${block} (${bytes}) at ${new Date().toISOString()}`
+        $ol.appendChild($li)
+      })
+
+      networkEvents.addEventListener('upload', ({feed, block, bytes}) => {
+        const $li = d.createElement('li')
+        $li.innerText = `Uploaded ${feed} block ${block} (${bytes}) at ${new Date().toISOString()}`
+        $ol.appendChild($li)
+      })
+
+      networkEvents.addEventListener('sync', ({feed}) => {
+        const $li = d.createElement('li')
+        $li.innerText = `${feed} synced at ${new Date().toISOString()}`
+        $ol.appendChild($li)
+      })
+    }
+    setup()
+  }
+
+  app(window, document, '.dyn-app')
+  </script>
+</body>
+</html>

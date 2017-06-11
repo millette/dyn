@@ -1,0 +1,19 @@
+{
+  "name": "dyn",
+  "authors": [
+    "Robin Millette <robin@millette.info>"
+  ],
+  "homepage": "https://github.com/millette/dyn",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "riot": "^3.6.0",
+    "riot-route": "^3.1.1"
+  }
+}

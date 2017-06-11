@@ -40,3 +40,32 @@ tree dyn -d -I node_modules -n --charset="windows-1252"
 ```
 
 instead of using the utf-8 charset, until [a bug in Beaker](https://github.com/beakerbrowser/beaker/issues/499) is fixed.
+
+## Helpers
+
+Use either of the following to update your .datignore file according to your changes to index.html, bower.json, etc.
+
+### Bower
+
+```sh
+yarn postinstall # will also download bower components
+```
+
+If you prefer npm:
+
+```sh
+npm run postinstall # will also download bower components
+```
+
+### Datignore
+To only update your .datignore file:
+
+```sh
+yarn ignore
+```
+
+If you prefer npm:
+
+```sh
+npm run ignore
+```

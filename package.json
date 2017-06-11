@@ -9,6 +9,8 @@
   },
   "devDependencies": {
     "bower": "^1.8.0",
+    "glob": "^7.1.2",
+    "pify": "^3.0.0",
     "standard": "^10.0.2"
   }
 }

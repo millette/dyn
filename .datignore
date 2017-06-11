@@ -7,3 +7,12 @@ bower_components/riot/riot.csp.min.js
 bower_components/riot/riot.js
 bower_components/riot/riot.min.js
 bower_components/riot/.bower.json
+bower_components/animore/lib
+bower_components/animore/test
+bower_components/animore/package.json
+bower_components/animore/README.md
+bower_components/animore/rollup.config.js
+bower_components/animore/.bower.json
+bower_components/animore/.eslintrc
+bower_components/animore/.gitignore
+bower_components/animore/.travis.yml

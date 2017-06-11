@@ -1,2 +1,9 @@
 node_modules
-bower_components
+bower_components/riot-route
+bower_components/riot/bower.json
+bower_components/riot/riot+compiler.js
+bower_components/riot/riot.csp.js
+bower_components/riot/riot.csp.min.js
+bower_components/riot/riot.js
+bower_components/riot/riot.min.js
+bower_components/riot/.bower.json

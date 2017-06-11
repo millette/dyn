@@ -4,7 +4,8 @@
   "repository": "millette/dyn",
   "author": "Robin Millette <robin@millette.info>",
   "scripts": {
-    "postinstall": "bower install",
+    "postinstall": "bower install && node scripts/to-ignore",
+    "ignore": "node scripts/to-ignore",
     "lint": "standard"
   },
   "devDependencies": {

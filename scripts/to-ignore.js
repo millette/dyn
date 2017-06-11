@@ -8,6 +8,9 @@ const pify = require('pify')
 const glob = pify(require('glob'))
 
 const readFile = pify(fs.readFile)
+const writeFileImp = pify(fs.writeFile)
+
+const writeFile = (x) => writeFileImp('.datignore', `${x.join('\n')}\n`, 'utf-8')
 
 const ignoreWhat = (keep) => glob('bower_components/**', {
   ignore: keep,
@@ -25,13 +28,15 @@ const inUse = () => readFile('index.html', 'utf-8')
     return ok.sort()
   })
 
+const keepGit = ['', 'bower_components', '.datignore']
+
+const isGit = (x) => keepGit.indexOf(x) === -1
+
 const gitIgnored = (i) => readFile('.gitignore', 'utf-8')
-  .then((x) => x.split('\n').filter((y) => y && y !== 'bower_components').concat(i))
+  .then((x) => x.split('\n').filter(isGit).concat(i))
 
 inUse()
   .then(ignoreWhat)
   .then(gitIgnored)
-  .then((x) => {
-    console.log(x.join('\n'))
-  })
+  .then(writeFile)
   .catch(console.error)

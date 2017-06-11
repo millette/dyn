@@ -7,5 +7,4 @@
   riot.mount('page-title', archiveInfo)
   riot.mount('dat-meta', archiveInfo)
   riot.mount('dat-changes', archiveInfo)
-  // riot.mount('dat-changes', Object.assign({}, archiveInfo, { nChanges: 10 }))
 })(window)

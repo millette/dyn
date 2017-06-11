@@ -1,6 +1,7 @@
-.git
-.env
 node_modules
+.env
+
+.git
 bower_components/riot-route
 bower_components/riot/bower.json
 bower_components/riot/riot+compiler.js

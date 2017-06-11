@@ -1,5 +1,10 @@
 <dat-changes>
-  <h3 if={changes && changes.length}>Changes</h3>
+  <h3 if={changes && changes.length}>
+    Changes
+    <button onclick={clear}>
+      clear
+    </button>
+  </h3>
   <ol if={changes && changes.length}>
     <li each={changes}>{change}</li>
   </ol>
@@ -7,6 +12,8 @@
   <script>
     this.nChanges = opts.nChanges || 20
     this.changes = [ ]
+
+    clear () { this.update({ changes: [ ] }) }
 
     addChange (change) {
       // FIXME: should a push automatically trigger an update or what?

@@ -9,8 +9,8 @@
 
     evFn (e) {
       // FIXME: should a push automatically trigger an update or what?
-      this.changes.push({ change: `${e.path} ${e.type} at ${new Date().toISOString()}` })
-      this.changes = this.changes.slice(-25)
+      this.changes.unshift({ change: `${e.path} ${e.type} at ${new Date().toISOString()}` })
+      this.changes = this.changes.slice(0, 25)
       this.update()
     }
 

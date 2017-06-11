@@ -5,12 +5,13 @@
   </ol>
 
   <script>
+    this.nChanges = opts.nChanges || 20
     this.changes = [ ]
 
     evFn (e) {
       // FIXME: should a push automatically trigger an update or what?
       this.changes.unshift({ change: `${e.path} ${e.type} at ${new Date().toISOString()}` })
-      this.changes = this.changes.slice(0, 25)
+      this.changes = this.changes.slice(0, this.nChanges)
       this.update()
     }
 

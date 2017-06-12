@@ -13,7 +13,17 @@
     <dd each={forkOf}><a href={url}>{urlStr}</a></dd>
   </dl>
 
+  <h3>Details <button name="details" onclick={toggle}>toggle</button></h3>
+  <pre show={details}>{JSON.stringify(this, null, '  ')}</pre>
+
   <script>
+    this.details = false
+    toggle (e) {
+      const d = e.target.name
+      if (!d) { return }
+      if (this[d]) { return (this[d] = false) }
+      if (this[d] === false) { this[d] = true }
+    }
     const makeUrlStr = (url) => {
       const urlStr = `${url.slice(0, 'dat://'.length + 6)}…${url.slice(-2)}`
       return { url, urlStr }

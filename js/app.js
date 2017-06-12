@@ -3,6 +3,8 @@
 'use strict'
 
 Boolean((async (w) => {
+  if (typeof DatArchive === 'undefined') { return riot.mount('dat-http') }
+
   let www
   try {
     www = await DatArchive.resolveName(w.location.hostname)

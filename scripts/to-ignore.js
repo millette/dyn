@@ -27,7 +27,7 @@ const inUse = () => readFile('index.html', 'utf-8')
 
 // FIXME: instead of nodir=true, only exclude unused paths
 const ignoreWhat = (ignore) => glob('bower_components/**', { ignore, dot: true, nodir: true })
-const keepGit = ['', 'bower_components', '.datignore']
+const keepGit = ['', 'bower_components', '.datignore', 'notes']
 const isGit = (x) => keepGit.indexOf(x) === -1
 
 const gitIgnored = (i) => readFile('.gitignore', 'utf-8')

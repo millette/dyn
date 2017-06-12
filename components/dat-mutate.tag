@@ -19,7 +19,12 @@
     You'll find your notes in the <a href="notes/">notes directory</a>.
   </p>
 
-  <dat-notes archive={opts.archive}></dat-notes>
+  <h3 onclick={noteFiles}>Notes</h3>
+  <ol if={topFiles && topFiles.length}>
+    <li each={topFiles}>
+      <a href={fn}>{title}</a>  - <a href={fn} onclick={edit}>edit</a>
+    </li>
+  </ol>
 
   <pre if={resp}>{JSON.stringify(resp, null, '  ')}</pre>
   <h3>Add a note</h3>
@@ -44,52 +49,42 @@
 
     reset (e) { this.resp = false }
 
-    write (resp) {
-      opts.archive.writeFile(
+    async write (resp) {
+      await opts.archive.writeFile(
         `/notes/note-${Date.now()}.json`,
         JSON.stringify(resp),
         'utf-8'
       )
       this.update({ resp })
+      return this.noteFiles()
     }
 
-    submit (e) {
+    async submit (e) {
       e.preventDefault()
-
       const obj = {
         createdAt: new Date().toISOString(),
         title: this.refs.title.value,
         comment: this.refs.comment.value
       }
 
-      // FIXME: mkdir throws if /notes/ already exists
-      opts.archive.mkdir('/notes')
-        .then(() => this.write(obj))
-        .catch((e) => this.write(obj))
+      try {
+        await opts.archive.mkdir('/notes')
+      } catch (e) {
+        // probably because /notes/ already exists...
+        // console.error('mkdir...', e)
+      }
+      await this.write(obj)
     }
 
-  </script>
-</dat-can-mutate>
-
-<dat-notes>
-  <h3 onclick={noteFiles}>Notes</h3>
-  <ol if={topFiles && topFiles.length}>
-    <li each={topFiles}>
-      <a href={fn}>{title}</a>  - <a href={fn} onclick={edit}>edit</a>
-    </li>
-  </ol>
-
-  <script>
     this.topFiles = false
 
     async edit (e) {
       e.preventDefault()
-      // console.log(e.target, e.target.pathname)
-
       const fn = e.target.pathname
       const fc = await opts.archive.readFile(fn)
       const obj = JSON.parse(fc)
-      console.log(fn, obj)
+      this.refs.title.value = obj.title
+      this.refs.comment.value = obj.comment
     }
 
     async noteFiles () {
@@ -108,9 +103,6 @@
       )
         .then((topFiles) => this.update({ topFiles }))
     }
-    // for now, we trigger noteFiles by clicking on the Notes h3
-    // FIXME: call on form submit
     this.noteFiles()
   </script>
-
-</dat-notes>
+</dat-can-mutate>

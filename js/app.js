@@ -11,4 +11,5 @@ Boolean((async (w) => {
   riot.mount('page-title', archiveInfo)
   riot.mount('dat-meta', archiveInfo)
   riot.mount('dat-changes', archiveInfo)
+  riot.mount('wanna-fork', archiveInfo)
 })(window))

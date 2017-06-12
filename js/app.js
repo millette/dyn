@@ -13,4 +13,9 @@ Boolean((async (w) => {
   riot.mount('dat-meta', archiveInfo)
   riot.mount('dat-changes', archiveInfo)
   riot.mount('wanna-fork', archiveInfo)
+
+  try {
+    const www = await DatArchive.resolveName(String(w.location))
+    console.log('WWW:', www)
+  } catch (e) { console.error('OUPS:', e) }
 })(window))

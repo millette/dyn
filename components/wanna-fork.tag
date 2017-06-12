@@ -23,7 +23,6 @@
     async forkMe () {
       // prompt user
       const selfForkArchive = await DatArchive.fork(this.opts.selfArchive)
-      // console.log('done', selfForkArchive.url)
       window.location = selfForkArchive.url
     }
   </script>

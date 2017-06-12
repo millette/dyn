@@ -18,4 +18,5 @@ Boolean((async (w) => {
   riot.mount('dat-meta', archiveInfo)
   riot.mount('dat-changes', archiveInfo)
   riot.mount('wanna-fork', archiveInfo)
+  riot.mount('dat-mutate', archiveInfo)
 })(window))

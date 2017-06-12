@@ -5,6 +5,7 @@
 Boolean((async (w) => {
   const selfArchive = new DatArchive(String(w.location))
   const archiveInfo = await selfArchive.getInfo()
+  archiveInfo.selfArchive = selfArchive
   archiveInfo.networkEvents = selfArchive.createNetworkActivityStream()
   archiveInfo.fileEvents = selfArchive.createFileActivityStream()
 

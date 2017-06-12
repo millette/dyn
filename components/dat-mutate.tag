@@ -18,7 +18,11 @@
   <p>
     You'll find your notes in the <a href="notes/">notes directory</a>.
   </p>
+
+  <dat-notes archive={opts.archive}></dat-notes>
+
   <pre if={resp}>{JSON.stringify(resp, null, '  ')}</pre>
+  <h3>Add a note</h3>
   <form onsubmit={submit}>
     <label>
       Title
@@ -66,3 +70,47 @@
 
   </script>
 </dat-can-mutate>
+
+<dat-notes>
+  <h3 onclick={noteFiles}>Notes</h3>
+  <ol if={topFiles && topFiles.length}>
+    <li each={topFiles}>
+      <a href={fn}>{title}</a>  - <a href={fn} onclick={edit}>edit</a>
+    </li>
+  </ol>
+
+  <script>
+    this.topFiles = false
+
+    async edit (e) {
+      e.preventDefault()
+      // console.log(e.target, e.target.pathname)
+
+      const fn = e.target.pathname
+      const fc = await opts.archive.readFile(fn)
+      const obj = JSON.parse(fc)
+      console.log(fn, obj)
+    }
+
+    async noteFiles () {
+      const topFilesP = await opts.archive.readdir('/notes/')
+      return Promise.all(topFilesP
+        .sort()
+        .reverse()
+        .slice(0, 10)
+        .map(async (topFile) => {
+          const fn = `/notes/${topFile}`
+          const fc = await opts.archive.readFile(fn)
+          const obj = JSON.parse(fc)
+          obj.fn = fn
+          return obj
+        })
+      )
+        .then((topFiles) => this.update({ topFiles }))
+    }
+    // for now, we trigger noteFiles by clicking on the Notes h3
+    // FIXME: call on form submit
+    this.noteFiles()
+  </script>
+
+</dat-notes>

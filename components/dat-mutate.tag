@@ -22,7 +22,9 @@
   <h3 onclick={noteFiles}>Notes</h3>
   <ol if={topFiles && topFiles.length}>
     <li each={topFiles}>
-      <a href={fn}>{title}</a>  - <a href={fn} onclick={edit}>edit</a>
+      <a href={fn}>{title}</a> -
+      <a href={fn} onclick={edit}>edit</a> -
+      <a href={fn} onclick={del}>delete</a>
     </li>
   </ol>
 
@@ -73,10 +75,17 @@
         // probably because /notes/ already exists...
         // console.error('mkdir...', e)
       }
-      await this.write(obj)
+      return this.write(obj)
     }
 
     this.topFiles = false
+
+    async del (e) {
+      e.preventDefault()
+      const fn = e.target.pathname
+      await opts.archive.unlink(fn)
+      return this.noteFiles()
+    }
 
     async edit (e) {
       e.preventDefault()

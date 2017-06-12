@@ -3,12 +3,15 @@
 'use strict'
 
 Boolean((async (w) => {
+  let www
   try {
-    const www = await DatArchive.resolveName(String(w.location))
+    www = await DatArchive.resolveName(String(w.location.hostname))
     console.log('WWW:', www)
   } catch (e) { console.error('OUPS:', e) }
 
-  const selfArchive = new DatArchive(String(w.location))
+  if (!www) { www = String(w.location) }
+
+  const selfArchive = new DatArchive(www)
   const archiveInfo = await selfArchive.getInfo()
   archiveInfo.selfArchive = selfArchive
   archiveInfo.networkEvents = selfArchive.createNetworkActivityStream()

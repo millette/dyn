@@ -14,7 +14,7 @@
         this.opts.forkOf && this.opts.forkOf.length || 0
       )
     ]
-    this.forkingText = `Want to fork me? You'd be ${forkerRank} to do so.`
+    this.forkingText = `Want to fork me? You'd be ${forkerRank} generation to do so.`
 
     this.ownerText = this.opts.isOwner
       ? 'You are already the owner. You can edit me.'

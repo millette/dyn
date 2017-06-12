@@ -4,3 +4,26 @@ body {
   background: rgba(139, 139, 194, .2);
   margin: 1rem 2rem;
 }
+
+form {
+  width: 60%;
+}
+
+label {
+  margin: 0.5rem 0;
+  display: block;
+}
+
+label * {
+  float: right;
+  width: 80%;
+}
+
+form > br {
+  clear: both;
+}
+
+form > input {
+  margin: 0.5rem 0;
+  float: right;
+}

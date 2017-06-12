@@ -22,7 +22,17 @@
 
     async forkMe () {
       // prompt user
-      const selfForkArchive = await DatArchive.fork(this.opts.selfArchive)
+      const title = `Fork (gen. ${1 + (this.opts.forkOf && this.opts.forkOf.length || 0)}) of ${this.opts.title}`
+      const $but = document.querySelector('wanna-fork > h3 > button')
+      $but.disabled = true
+      if (!this.opts.isOwner) {
+        $but.innerText = 'Downloading, please wait...'
+        await this.opts.selfArchive.download('/')
+      }
+
+      $but.innerText = 'Forking, please wait...'
+      const selfForkArchive = await DatArchive.fork(this.opts.selfArchive, { title })
+      $but.innerText = 'Forking done, redirecting...'
       window.location = selfForkArchive.url
     }
   </script>

@@ -31,9 +31,15 @@
       }
 
       $but.innerText = 'Forking, please wait...'
-      const selfForkArchive = await DatArchive.fork(this.opts.selfArchive, { title })
-      $but.innerText = 'Forking done, redirecting...'
-      window.location = selfForkArchive.url
+      try {
+        const selfForkArchive = await DatArchive.fork(this.opts.selfArchive, { title })
+        $but.innerText = 'Forking done, redirecting...'
+        window.location = selfForkArchive.url
+      } catch (e) {
+        $but.disabled = false
+        $but.innerText = 'Forking aborted by user'
+        setTimeout(($b) => { $b.innerText = 'Fork me!' }, 3000, $but)
+      }
     }
   </script>
 

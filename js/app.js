@@ -5,8 +5,7 @@
 Boolean((async (w) => {
   let www
   try {
-    www = await DatArchive.resolveName(String(w.location.hostname))
-    console.log('WWW:', www)
+    www = await DatArchive.resolveName(w.location.hostname)
   } catch (e) { console.error('OUPS:', e) }
 
   if (!www) { www = String(w.location) }

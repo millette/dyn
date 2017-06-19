@@ -15,6 +15,7 @@
   "dependencies": {
     "riot": "^3.6.0",
     "riot-route": "^3.1.1",
-    "animore": "riot/animore#^0.0.3"
+    "animore": "riot/animore#^0.0.3",
+    "remarkable": "^1.7.1"
   }
 }

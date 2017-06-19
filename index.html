@@ -10,6 +10,7 @@
   <body>
     <dat-http></dat-http>
     <page-title></page-title>
+    <md-note></md-note>
     <dat-meta></dat-meta>
     <wanna-fork></wanna-fork>
     <dat-mutate></dat-mutate>
@@ -29,12 +30,15 @@
     <script src="components/dat-changes.tag" type="riot/tag"></script>
     <script src="components/wanna-fork.tag" type="riot/tag"></script>
     <script src="components/dat-mutate.tag" type="riot/tag"></script>
-
+    <script src="components/md-note.tag" type="riot/tag"></script>
     <script src="components/dat-http.tag" type="riot/tag"></script>
 
-    <!-- scripts we need -->
+    <!-- scripts we need: vendor -->
     <script src="bower_components/riot/riot%2Bcompiler.min.js"></script>
     <script src="bower_components/animore/riot-animore.js"></script>
+    <script src="bower_components/remarkable/dist/remarkable.min.js"></script>
+
+    <!-- scripts we need: custom -->
     <script src="js/utils.js"></script>
     <script src="js/app.js"></script>
   </body>

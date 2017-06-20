@@ -1,4 +1,4 @@
-/* global DatArchive, riot */
+/* global DatArchive, riot, route, Remarkable */
 
 'use strict'
 
@@ -18,14 +18,14 @@ Boolean((async (w) => {
   archiveInfo.networkEvents = selfArchive.createNetworkActivityStream()
   archiveInfo.fileEvents = selfArchive.createFileActivityStream()
   archiveInfo.md = new Remarkable('full', {
-    html:         true,         // Enable HTML tags in source
-    xhtmlOut:     false,        // Use '/' to close single tags (<br />)
-    breaks:       true,         // Convert '\n' in paragraphs into <br>
-    langPrefix:   'language-',  // CSS language prefix for fenced blocks
-    linkify:      true,         // Autoconvert URL-like text to links
+    html: true,         // Enable HTML tags in source
+    xhtmlOut: false,        // Use '/' to close single tags (<br />)
+    breaks: true,         // Convert '\n' in paragraphs into <br>
+    langPrefix: 'language-',  // CSS language prefix for fenced blocks
+    linkify: true,         // Autoconvert URL-like text to links
 
     // Enable some language-neutral replacement + quotes beautification
-    typographer:  true,
+    typographer: true,
 
     // Double + single quotes replacement pairs, when typographer enabled,
     // and smartquotes on. Set doubles to '«»' for Russian, '„“' for German.
@@ -33,7 +33,7 @@ Boolean((async (w) => {
 
     // Highlighter function. Should return escaped HTML,
     // or '' if the source string is not changed
-    highlight: function (/*str, lang*/) { return '' }
+    highlight: function (/* str, lang */) { return '' }
   })
 
   riot.mount('page-title', archiveInfo)
@@ -43,4 +43,6 @@ Boolean((async (w) => {
   riot.mount('dat-mutate', archiveInfo)
   riot.mount('md-note', archiveInfo)
   w.bla = riot.observable()
+
+  route.start()
 })(window))

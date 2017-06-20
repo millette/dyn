@@ -23,7 +23,7 @@
   <ol if={topFiles && topFiles.length}>
     <li each={topFiles}>
       <a href={fn}>{title}</a> -
-      <a href={fn} onclick={view}>view</a> -
+      <a href={'#view' + fn}>view</a> -
       <a href={fn} onclick={edit}>edit</a> -
       <a href={fn} onclick={del}>delete</a>
     </li>
@@ -80,11 +80,6 @@
     }
 
     this.topFiles = false
-
-    view (e) {
-      e.preventDefault()
-      bla.trigger('view', e.target.href)
-    }
 
     async del (e) {
       e.preventDefault()

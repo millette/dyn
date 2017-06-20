@@ -18,6 +18,15 @@
     this.html = this.opts.md.render(json.comment)
     this.update()
   })
+
+  route('view/*/*', (b, c) => {
+    if (b !== 'notes') { return }
+    const $a = document.createElement('a')
+    $a.href = [b, c].join('/')
+    bla.trigger('view', $a.href)
+  })
+
+  route.exec()
   </script>
 </md-note>
 

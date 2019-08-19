@@ -11,7 +11,7 @@ Boolean(((w, d) => {
     return Object.assign($a, o).href
   }
 
-/*
+  /*
  * Example usage:
 
   const u1 = utils.relativeUrl()
